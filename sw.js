@@ -1,6 +1,6 @@
 "use strict";
 
-const CACHE_NAME = "shici-app-v1";
+const CACHE_NAME = "shici-app-v2";
 const APP_SHELL = [
   "./",
   "./index.html",

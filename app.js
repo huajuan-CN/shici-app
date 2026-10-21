@@ -69,7 +69,7 @@
   var installPrompt = null;
   var articleState = {
     word: readJSON(KEYS.article, {}).word || "",
-    engine: readJSON(KEYS.article, {}).engine || "news"
+    engine: readJSON(KEYS.article, {}).engine || "articles"
   };
 
   var libraryState = {
@@ -416,20 +416,20 @@
     var clean = (word || "").trim();
     if (!clean) return "";
     if (engine === "dictionary") {
-      return "https://dictionary.cambridge.org/dictionary/english/" + encodeURIComponent(clean);
+      return "https://cn.bing.com/dict/search?q=" + encodeURIComponent(clean);
     }
     if (engine === "articles") {
-      return "https://www.bing.com/search?q=" + encodeURIComponent('"' + clean + '" English learning article');
+      return "https://cn.bing.com/search?q=" + encodeURIComponent('"' + clean + '" 英语 学习 文章 语境');
     }
-    return "https://news.google.com/search?q=" + encodeURIComponent('"' + clean + '" English');
+    return "https://cn.bing.com/news/search?q=" + encodeURIComponent('"' + clean + '" English');
   }
 
   function updateArticleLinks() {
     var word = $("#articleWord").value.trim() || articleState.word;
     var note = {
-      news: "将打开 Google 新闻中与单词相关的最新报道。",
-      articles: "将打开 Bing 中适合英语学习的文章搜索结果。",
-      dictionary: "将打开 Cambridge Dictionary 的英文释义页。"
+      news: "将打开必应中国新闻，查找与单词相关的报道。",
+      articles: "将使用必应中国站，查找与单词相关的英语学习文章。",
+      dictionary: "将打开必应中国词典，查看英文释义与例句。"
     };
     $("#articleSearchNote").textContent = note[articleState.engine];
     $$("#enginePicker button").forEach(function (button) {
@@ -437,9 +437,9 @@
     });
 
     var links = [
-      { label: "Google 新闻", url: articleUrl(word, "news") },
-      { label: "学习文章", url: articleUrl(word, "articles") },
-      { label: "Cambridge 词典", url: articleUrl(word, "dictionary") }
+      { label: "必应新闻", url: articleUrl(word, "news") },
+      { label: "必应文章", url: articleUrl(word, "articles") },
+      { label: "必应词典", url: articleUrl(word, "dictionary") }
     ];
     $("#relatedLinks").innerHTML = links.map(function (link) {
       return '<a class="related-link" href="' + esc(link.url) + '" target="_blank" rel="noopener noreferrer">' +
